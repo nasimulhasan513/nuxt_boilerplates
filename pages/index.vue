@@ -81,12 +81,18 @@ const route = useRoute()
 const coupon = route.query.coupon
 const phone = route.query.phone
 
+
+
+
+
 const { $axios } = useNuxtApp()
 
 
 const affiliateInfo = ref({})
 
 const getAffiliateInfo = async () => {
+
+  if (!coupon || !phone) return alert('Invalid coupon or phone number')
   const { data } = await $axios.get(`/affiliate?coupon=${coupon}&phone=${phone}`)
   affiliateInfo.value = data
   affiliateInfo.value.totalCouponSell = data.payments.length;
